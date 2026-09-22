@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora ID - Smart Savings & Wealth Management Platform | Penerbit: Rizky Hari Mukti</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        nexora: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                            accent: '#06b6d4',
+                            glow: '#a855f7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for Interactive Savings Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+        
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #4f46e5, #06b6d4, #a855f7, #4f46e5);
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(8px);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            animation: glowing 20s linear infinite;
+        }
+
+        .glow-effect:hover::before {
+            opacity: 0.8;
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Holographic Card Effect */
+        .holo-card {
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .holo-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 40%,
+                rgba(6, 182, 212, 0.15) 50%,
+                rgba(168, 85, 247, 0.1) 60%,
+                transparent 70%
+            );
+            transform: rotate(30deg);
+            animation: holoShift 6s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes holoShift {
+            0% { transform: translateY(-100%) rotate(30deg); }
+            100% { transform: translateY(100%) rotate(30deg); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
+
+        /* PRINT STYLESHEET FOR OFFICIAL REPORT */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableReport, #printableReport * {
+                visibility: visible;
+            }
+            #printableReport {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white !important;
+                color: black !important;
+                padding: 20px;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-grid-pattern min-h-screen text-slate-200 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 glass-card border-b border-slate-800/80 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-cyan-500 to-purple-500 p-0.5 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform duration-300">
+                        <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                            <i class="fa-solid fa-piggy-bank text-indigo-400 text-xl group-hover:text-cyan-400 transition-colors"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">NEXORA <span class="text-indigo-500">SAVINGS</span></span>
+                        <span class="block text-[10px] font-semibold uppercase tracking-widest text-indigo-400/80">Secured Identity & Wealth</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation -->
+                <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#kalkulator" class="hover:text-indigo-400 transition-colors py-2">Kalkulator Bunga</a>
+                    <a href="#analytics" class="hover:text-indigo-400 transition-colors py-2">Grafik & Analisis</a>
+                    <a href="#targets" class="hover:text-indigo-400 transition-colors py-2">Pos Tabungan</a>
+                    <a href="#fitur" class="hover:text-indigo-400 transition-colors py-2">Keunggulan</a>
+                    <a href="#faq" class="hover:text-indigo-400 transition-colors py-2">FAQ</a>
+                    <a href="#penerbit" class="hover:text-indigo-400 transition-colors py-2">Penerbit</a>
+                </nav>
+
+                <!-- Header Actions & CTA -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button id="registerBtnNav" type="button" class="glow-effect relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl transition-all shadow-lg shadow-indigo-600/30">
+                        <span>Buat Brankas ID</span>
+                        <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobileMenuBtn" type="button" aria-label="Menu" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div class="hidden lg:hidden glass-card border-b border-slate-800 px-4 pt-2 pb-6 space-y-3" id="mobileMenu">
+            <a href="#kalkulator" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-800/60 text-slate-200">Kalkulator Bunga</a>
+            <a href="#analytics" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-800/60 text-slate-200">Grafik Analytics</a>
+            <a href="#targets" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-800/60 text-slate-200">Pos Target Tabungan</a>
+            <a href="#fitur" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-800/60 text-slate-200">Keunggulan Fitur</a>
+            <a href="#faq" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-800/60 text-slate-200">FAQ Bantuan</a>
+            <a href="#penerbit" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-800/60 text-slate-200">Penerbit & Lisensi</a>
+            <div class="pt-3 border-t border-slate-800 flex flex-col gap-2">
+                <button id="mobileRegisterBtn" type="button" class="w-full text-center py-2.5 font-bold text-white bg-indigo-600 rounded-xl hover:bg-indigo-500 shadow-lg shadow-indigo-600/30">Mulai Tabungan Baru</button>
+                <button id="mobileCsBtn" type="button" class="w-full text-center py-2.5 font-bold text-slate-200 bg-slate-900 border border-indigo-500/40 rounded-xl hover:bg-indigo-600/20 hover:text-white transition-all shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-headset text-indigo-400"></i>
+                    <span>Customer Service Nexora ID</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+        <!-- Background Radial Glows -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-cyan-500/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <!-- Publisher Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-indigo-500/30 text-xs sm:text-sm font-medium mb-6 text-slate-300 shadow-inner">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-indigo-300 font-semibold">Resmi & Terenkripsi</span>
+                    <span class="text-slate-600">•</span>
+                    <span>Penerbit: <strong class="text-white font-semibold">Rizky Hari Mukti</strong></span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6">
+                    Satu Platform Tabungan <br>
+                    <span class="bg-gradient-to-r from-indigo-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent">
+                        Cerdas, Akurat, & Terencana
+                    </span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-400 leading-relaxed font-normal mb-8">
+                    Nexora ID kini dilengkapi dengan **Smart Savings Vault & Compound Simulator**. Hitung pertumbuhan simpanan, kelola pos target keuangan, dan dapatkan grafik analisis keuangan secara *real-time*.
+                </p>
+
+                <!-- Hero CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#kalkulator" class="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-calculator text-indigo-200"></i>
+                        <span>Buka Kalkulator Tabungan</span>
+                        <i class="fa-solid fa-arrow-down group-hover:translate-y-1 transition-transform text-xs"></i>
+                    </a>
+                    <a href="#targets" class="w-full sm:w-auto px-8 py-4 glass-card hover:bg-slate-800/80 text-slate-200 font-semibold rounded-xl transition-all border border-slate-700 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-wallet text-cyan-400"></i>
+                        <span>Tabungan Fleksibel & Target</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Global Savings Summary Metrics -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-10 p-4 sm:p-6 glass-card rounded-2xl border border-slate-800">
+                <div class="text-center p-3">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono" id="heroTotalSavings">Rp 0</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Total Tabungan Terkelola</div>
+                </div>
+                <div class="text-center p-3 border-l border-slate-800">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono" id="heroAvgReturn">0% p.a</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Estimasi Bunga/Return</div>
+                </div>
+                <div class="text-center p-3 border-l border-slate-800">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono" id="heroGoalCount">4 Pos</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Pos Keuangan Aktif</div>
+                </div>
+                <div class="text-center p-3 border-l border-slate-800">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 font-mono">AES-256</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Keamanan Data Bank</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE SAVINGS CALCULATOR SECTION -->
+    <section id="kalkulator" class="py-16 relative bg-slate-950/60 border-y border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 uppercase tracking-wider">Simulasi Bunga Majemuk Nexora</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Kalkulator Proyeksi Tabungan</h2>
+                <p class="text-slate-400 mt-2">Hitung perkiraan pertumbuhan simpanan Anda. Ketik nominal menggunakan pemisah titik (misal: 1.000.000).</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Calculator Inputs Form -->
+                <div class="lg:col-span-5 glass-card p-6 sm:p-8 rounded-2xl border border-slate-800">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center justify-between">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-indigo-400"></i>
+                            <span>Parameter Tabungan</span>
+                        </span>
+                        <button type="button" id="resetCalcBtn" class="text-xs text-indigo-400 hover:text-indigo-300 underline">Mulai dari 0</button>
+                    </h3>
+
+                    <form id="savingsCalcForm" class="space-y-5" onsubmit="event.preventDefault();">
+                        <!-- Initial Deposit -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label for="initialDeposit" class="text-xs font-semibold uppercase text-slate-400">Setoran Awal (Rp)</label>
+                                <span class="text-xs font-mono text-cyan-400 font-bold" id="valInitialDepositDisplay">Rp 0</span>
+                            </div>
+                            <input type="text" id="initialDeposit" value="0" placeholder="0" class="idr-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-indigo-500 transition-colors">
+                        </div>
+
+                        <!-- Monthly Deposit -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label for="monthlyDeposit" class="text-xs font-semibold uppercase text-slate-400">Setoran Rutin Bulanan (Rp)</label>
+                                <span class="text-xs font-mono text-cyan-400 font-bold" id="valMonthlyDepositDisplay">Rp 0</span>
+                            </div>
+                            <input type="text" id="monthlyDeposit" value="0" placeholder="0" class="idr-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-indigo-500 transition-colors">
+                        </div>
+
+                        <!-- Interest Rate Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label for="interestRate" class="text-xs font-semibold uppercase text-slate-400">Estimasi Bunga / Return (% p.a)</label>
+                                <span class="text-xs font-mono text-emerald-400 font-bold" id="valInterestRateDisplay">0.0 %</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="interestRate" min="0" max="20" step="0.5" value="0" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                                <input type="number" id="interestRateNum" value="0" min="0" max="25" step="0.5" class="w-20 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-center font-mono text-white">
+                            </div>
+                        </div>
+
+                        <!-- Matching Investment Instrument Display Box -->
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-indigo-500/30">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400 block mb-1">
+                                <i class="fa-solid fa-chart-pie mr-1"></i>Instrumen Investasi Padanan
+                            </span>
+                            <div id="matchedInstrumentName" class="text-sm font-extrabold text-white">Tabungan Bank Biasa / Cash</div>
+                            <p id="matchedInstrumentDesc" class="text-xs text-slate-400 mt-1 leading-relaxed">Suku bunga dasar 0% per tahun tanpa imbal hasil investasi tambahan.</p>
+                        </div>
+
+                        <!-- Time Period (Tenor) -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label for="investmentYears" class="text-xs font-semibold uppercase text-slate-400">Jangka Waktu Simpanan</label>
+                                <span class="text-xs font-mono text-purple-400 font-bold" id="valYearsDisplay">1 Tahun (12 Bulan)</span>
+                            </div>
+                            <select id="investmentYears" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-indigo-500 transition-colors">
+                                <option value="1" selected>1 Tahun (12 Bulan)</option>
+                                <option value="3">3 Tahun (36 Bulan)</option>
+                                <option value="5">5 Tahun (60 Bulan)</option>
+                                <option value="10">10 Tahun (120 Bulan)</option>
+                                <option value="15">15 Tahun (180 Bulan)</option>
+                                <option value="20">20 Tahun (240 Bulan)</option>
+                            </select>
+                        </div>
+
+                        <button type="button" id="recalculateBtn" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Hitung Ulang Proyeksi</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Calculator Result Summary Cards & Main Growth Chart -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Result KPI Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="glass-card p-5 rounded-2xl border border-indigo-500/30">
+                            <span class="text-xs text-slate-400 font-medium block">Total Estimasi Saldo</span>
+                            <div class="text-xl sm:text-2xl font-extrabold text-white font-mono mt-1" id="resTotalBalance">Rp 0</div>
+                            <span class="text-[10px] text-emerald-400 font-semibold block mt-1">
+                                <i class="fa-solid fa-arrow-trend-up mr-1"></i>Simulasi Proyeksi
+                            </span>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-2xl border border-slate-800">
+                            <span class="text-xs text-slate-400 font-medium block">Total Modal Disetor</span>
+                            <div class="text-lg font-bold text-slate-200 font-mono mt-1" id="resTotalPrincipal">Rp 0</div>
+                            <span class="text-[10px] text-slate-400 block mt-1">Setoran Awal + Bulanan</span>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-2xl border border-emerald-500/30">
+                            <span class="text-xs text-slate-400 font-medium block">Hasil Profit / Bunga</span>
+                            <div class="text-lg font-bold text-emerald-400 font-mono mt-1" id="resTotalInterest">+Rp 0</div>
+                            <span class="text-[10px] text-emerald-300 font-mono font-semibold block mt-1" id="resInterestPercent">+0% dari Modal</span>
+                        </div>
+                    </div>
+
+                    <!-- Line Chart: Growth over time -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 relative">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-chart-area text-indigo-400"></i>
+                                <span>Grafik Pertumbuhan Akumulasi Saldo</span>
+                            </h4>
+                            <span class="text-[10px] text-slate-400 font-mono">Diperbarui Realtime</span>
+                        </div>
+                        <div class="w-full h-72">
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISUAL ANALYTICS SECTION -->
+    <section id="analytics" class="py-16 relative bg-slate-950/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase tracking-wider">Visualisasi Analytics</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Analisis & Rasio Keuangan</h2>
+                <p class="text-slate-400 mt-2">Pantau perbandingan alokasi pos simpanan dan rasio pertumbuhan bunga majemuk secara interaktif.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-cyan-400"></i>
+                        <span>Rasio Uang Modal vs Keuntungan Bunga</span>
+                    </h4>
+                    <div class="w-full h-64 flex items-center justify-center">
+                        <canvas id="ratioChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-indigo-400"></i>
+                        <span>Progres Alokasi Pos Tabungan</span>
+                    </h4>
+                    <div class="w-full h-64">
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MULTI-GOAL & REGULAR SAVINGS TRACKER SECTION -->
+    <section id="targets" class="py-16 relative bg-slate-950/60 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 uppercase tracking-wider">Manajemen Tabungan</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Pos Tabungan & Dompet Digital</h2>
+                    <p class="text-slate-400 mt-2">Kelola tabungan biasa tanpa target (fleksibel) serta pos target tabungan terencana Anda.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Cetak / Export Laporan Button -->
+                    <button id="exportReportBtn" type="button" class="px-4 py-3 glass-card hover:bg-slate-800 text-slate-200 font-bold rounded-xl border border-slate-700 text-sm flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-file-pdf text-rose-400"></i>
+                        <span>Cetak Laporan</span>
+                    </button>
+                    <!-- Add Goal Button -->
+                    <button id="addGoalBtn" type="button" class="px-5 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>+ Buat Pos Target Baru</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABUNGAN BIASA / FLEKSIBEL (NO GOAL TARGET) -->
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-cyan-500/40 mb-10 relative overflow-hidden bg-slate-900/80">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
+                            <i class="fa-solid fa-wallet"></i> Tabungan Bebas / Fleksibel
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white">Dompet Simpanan Utama</h3>
+                        <p class="text-slate-400 text-sm max-w-xl">
+                            Tabungan biasa tanpa target khusus. Anda bebas menambah uang atau menarik uang kapan saja sesuai kebutuhan.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-center gap-6">
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium block">Saldo Tabungan Fleksibel:</span>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono mt-0.5" id="flexBalanceDisplay">Rp 0</div>
+                        </div>
+
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button type="button" id="flexDepositBtn" class="flex-1 sm:flex-initial px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Setor Uang
+                            </button>
+                            <button type="button" id="flexWithdrawBtn" class="flex-1 sm:flex-initial px-4 py-2.5 bg-rose-600/80 hover:bg-rose-500 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-minus"></i> Tarik Uang
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings Goals Cards Container -->
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-bullseye text-indigo-400"></i>
+                <span>Pos Tabungan Dengan Target</span>
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="goalsContainer">
+                <!-- Goal Cards populated dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES GRID SECTION -->
+    <section id="fitur" class="py-16 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 uppercase tracking-wider">Ekosistem Pintar</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Keunggulan Platform Nexora Savings</h2>
+                <p class="text-slate-400 mt-2">Didesain khusus untuk membantu Anda mengelola, mensimulasikan, dan merealisasikan impian finansial.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 glass-card-hover transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl mb-4">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Enkripsi Berstandar Bank</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Data catatan keuangan Anda dilindungi enkripsi AES-256 yang aman, privat, dan tidak dibagikan ke pihak ketiga mana pun.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 glass-card-hover transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl mb-4">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Simulator Bunga & Instrumen</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Hitung proyeksi imbal hasil secara otomatis serta ketahui instrumen investasi yang paling cocok dengan target Anda.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 glass-card-hover transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl mb-4">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Multi-Pos Fleksibel & Target</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Pisahkan tabungan bebas tanpa target dan pos alokasi terencana dalam satu dashboard pintar yang transparan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-16 relative bg-slate-950/60 border-t border-slate-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 uppercase tracking-wider">FAQ & Bantuan</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Pertanyaan yang Sering Diajukan</h2>
+                <p class="text-slate-400 mt-2">Temukan jawaban cepat seputar penggunaan Nexora Savings Platform.</p>
+            </div>
+            <div class="space-y-4">
+                <details class="glass-card rounded-2xl border border-slate-800 p-5 group cursor-pointer">
+                    <summary class="font-bold text-white flex justify-between items-center list-none text-sm sm:text-base">
+                        <span>Apakah simulasi kalkulator bunga ini akurat?</span>
+                        <i class="fa-solid fa-chevron-down text-indigo-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                        Ya, kalkulator ini menggunakan rumus Bunga Majemuk (Compound Interest) bulanan yang standar digunakan lembaga keuangan global untuk memberikan estimasi proyeksi simpanan yang presisi.
+                    </p>
+                </details>
+                <details class="glass-card rounded-2xl border border-slate-800 p-5 group cursor-pointer">
+                    <summary class="font-bold text-white flex justify-between items-center list-none text-sm sm:text-base">
+                        <span>Bagaimana cara kerja Tabungan Fleksibel vs Pos Target?</span>
+                        <i class="fa-solid fa-chevron-down text-indigo-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                        Tabungan Fleksibel digunakan untuk menyimpan uang bebas yang dapat ditambah (+ Setor) dan ditarik (- Tarik) kapan saja tanpa target. Sementara Pos Target membantu Anda disiplin mengumpulkan uang hingga persentase target tertentu.
+                    </p>
+                </details>
+                <details class="glass-card rounded-2xl border border-slate-800 p-5 group cursor-pointer">
+                    <summary class="font-bold text-white flex justify-between items-center list-none text-sm sm:text-base">
+                        <span>Siapa penerbit dan pengembang resmi platform ini?</span>
+                        <i class="fa-solid fa-chevron-down text-indigo-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                        Platform Nexora ID Savings diterbitkan dan dikembangkan secara resmi oleh <strong>Rizky Hari Mukti</strong> sebagai sarana perencanaan keuangan terenkripsi & pintar.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLISHER SECTION -->
+    <section id="penerbit" class="py-16 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card p-8 sm:p-10 rounded-3xl border border-indigo-500/30 holo-card flex flex-col md:flex-row items-center gap-8">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-tr from-indigo-600 via-cyan-500 to-purple-600 p-1 flex-shrink-0 shadow-xl shadow-indigo-500/30">
+                    <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                        <i class="fa-solid fa-user-shield text-4xl text-indigo-400"></i>
+                    </div>
+                </div>
+                <div class="space-y-3 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold">
+                        <i class="fa-solid fa-certificate"></i> Penerbit & Lisensi Resmi
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Rizky Hari Mukti</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
+                        Pengembang utama dan pemegang lisensi penerbitan Nexora ID Platform. Berkomitmen menghadirkan solusi teknologi finansial yang transparan, terenkripsi, dan mudah diakses oleh seluruh kalangan.
+                    </p>
+                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-4 text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400"></i> Terenkripsi AES-256</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400"></i> ID Verifikasi Resmi</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400"></i> Hak Cipta Dilindungi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL: WITHDRAW DANA (TABUNGAN FLEKSIBEL) -->
+    <div id="withdrawModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-slate-800 relative animate-fade-in">
+            <button id="closeWithdrawModalBtn" type="button" aria-label="Tutup" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-rose-600 flex items-center justify-center text-white text-xl shadow-lg shadow-rose-600/30">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Tarik Saldo Tabungan</h3>
+                <p class="text-xs text-rose-300 font-semibold mt-1">Dompet Simpanan Fleksibel</p>
+            </div>
+
+            <form id="withdrawForm" class="space-y-4">
+                <div>
+                    <label for="withdrawAmountInput" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nominal Penarikan (Rp)</label>
+                    <input type="text" id="withdrawAmountInput" required placeholder="0" class="idr-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-rose-500">
+                    <span class="text-[10px] text-slate-400 mt-1 block">Saldo Tersedia: <strong id="withdrawMaxBalanceText" class="text-cyan-400">Rp 0</strong></span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 pt-1">
+                    <button type="button" class="quick-with-btn py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs font-mono text-slate-300" data-amount="50000">50rb</button>
+                    <button type="button" class="quick-with-btn py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs font-mono text-slate-300" data-amount="100000">100rb</button>
+                    <button type="button" class="quick-with-btn py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs font-mono text-slate-300" data-amount="500000">500rb</button>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-rose-600/30 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    <span>Konfirmasi Penarikan Dana</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: DEPOSIT SAVINGS (SETOR TABUNGAN) -->
+    <div id="depositModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-slate-800 relative animate-fade-in">
+            <button id="closeDepositModalBtn" type="button" aria-label="Tutup" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-xl shadow-lg shadow-indigo-600/30">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Setor Tabungan</h3>
+                <p id="depositGoalTargetName" class="text-xs text-indigo-300 font-semibold mt-1">Dompet Simpanan</p>
+            </div>
+
+            <form id="depositForm" class="space-y-4">
+                <input type="hidden" id="depositGoalIndex" value="-1">
+                <div>
+                    <label for="depositAmountInput" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nominal Setoran (Rp)</label>
+                    <input type="text" id="depositAmountInput" required placeholder="0" class="idr-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-indigo-500">
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 pt-1">
+                    <button type="button" class="quick-dep-btn py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs font-mono text-slate-300" data-amount="100000">+100rb</button>
+                    <button type="button" class="quick-dep-btn py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs font-mono text-slate-300" data-amount="500000">+500rb</button>
+                    <button type="button" class="quick-dep-btn py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs font-mono text-slate-300" data-amount="1000000">+1 Juta</button>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-600/30 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Konfirmasi Simpan Tabungan</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD NEW GOAL -->
+    <div id="addGoalModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-slate-800 relative animate-fade-in">
+            <button id="closeAddGoalModalBtn" type="button" aria-label="Tutup" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-cyan-600 flex items-center justify-center text-white text-xl shadow-lg shadow-cyan-600/30">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Buat Target Tabungan Baru</h3>
+                <p class="text-xs text-slate-400 mt-1">Tambahkan pos alokasi dana simpanan impian Anda</p>
+            </div>
+
+            <form id="addGoalForm" class="space-y-4">
+                <div>
+                    <label for="newGoalName" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nama Target Tabungan</label>
+                    <input type="text" id="newGoalName" required placeholder="Contoh: Dana Darurat / DP Rumah" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="newGoalCategory" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Kategori Pos</label>
+                    <select id="newGoalCategory" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
+                        <option value="Prioritas">Prioritas Keuangan</option>
+                        <option value="Properti">Properti & Hunian</option>
+                        <option value="Gadget">Perlengkapan & Gadget</option>
+                        <option value="Pendidikan">Pendidikan & Skill</option>
+                        <option value="Lifestyle">Lifestyle & Liburan</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label for="newGoalCurrent" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Saldo Awal (Rp)</label>
+                        <input type="text" id="newGoalCurrent" required value="0" placeholder="0" class="idr-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label for="newGoalTarget" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Target Akhir (Rp)</label>
+                        <input type="text" id="newGoalTarget" required value="0" placeholder="0" class="idr-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-cyan-600/30 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Tambahkan Pos Tabungan</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: AUTHENTICATION / BRANKAS ID -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-slate-800 relative animate-fade-in">
+            <button id="closeAuthModalBtn" type="button" aria-label="Tutup" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-xl shadow-lg shadow-indigo-600/30">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Buat Brankas ID</h3>
+                <p class="text-xs text-indigo-300 font-semibold mt-1">Identitas Digital & Tabungan Nexora</p>
+            </div>
+            <form id="authForm" class="space-y-4">
+                <div>
+                    <label for="authUserName" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nama Lengkap Pemilik</label>
+                    <input type="text" id="authUserName" required placeholder="Masukkan nama Anda" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <div>
+                    <label for="authUserEmail" class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email Terenkripsi</label>
+                    <input type="email" id="authUserEmail" required placeholder="nama@email.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-600/30 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Aktivasi Brankas ID Baru</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CUSTOMER SERVICE NEXORA ID -->
+    <div id="csModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="glass-card max-w-lg w-full rounded-3xl border border-indigo-500/30 relative flex flex-col h-[580px] max-h-[90vh] shadow-2xl overflow-hidden animate-fade-in">
+            <!-- CS Header -->
+            <div class="p-4 sm:p-5 border-b border-slate-800 bg-slate-950/80 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                            <i class="fa-solid fa-headset text-lg"></i>
+                        </div>
+                        <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white leading-tight">Customer Service Nexora ID</h3>
+                        <p class="text-[11px] text-indigo-300 font-medium">Asisten Cerdas Tabungan & Finansial</p>
+                    </div>
+                </div>
+                <button id="closeCsModalBtn" type="button" aria-label="Tutup CS Modal" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Chat History Area -->
+            <div id="csChatHistory" class="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-950/40 text-xs">
+                <!-- CS Welcome Message -->
+                <div class="flex items-start gap-2.5">
+                    <div class="w-7 h-7 rounded-lg bg-indigo-600 flex-shrink-0 flex items-center justify-center text-white text-xs shadow-md">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 text-slate-200 max-w-[85%] leading-relaxed">
+                        Halo! 👋 Saya <strong>Customer Service Nexora ID</strong>.<br>Ada yang bisa saya bantu terkait simulasi tabungan, tempat menabung yang aman & menguntungkan, atau penggunaan fitur di platform ini?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Suggestion Chips -->
+            <div class="px-4 py-2 border-t border-slate-800/60 bg-slate-950/60 flex items-center gap-2 overflow-x-auto no-scrollbar text-[11px]">
+                <button type="button" class="cs-chip px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-600 hover:text-white whitespace-nowrap transition-colors">Nabung yang work dimana?</button>
+                <button type="button" class="cs-chip px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-600 hover:text-white whitespace-nowrap transition-colors">Beda Fleksibel vs Target?</button>
+                <button type="button" class="cs-chip px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 hover:bg-purple-600 hover:text-white whitespace-nowrap transition-colors">Siapa Penerbit Nexora?</button>
+            </div>
+
+            <!-- Chat Input Area -->
+            <form id="csForm" class="p-3 border-t border-slate-800 bg-slate-950/90 flex items-center gap-2">
+                <input type="text" id="csInput" placeholder="Ketik pertanyaan seputar tabungan..." required class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                <button type="submit" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-600/30">
+                    <span>Kirim</span>
+                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CETAK / EXPORT LAPORAN RINGKASAN KEUSANGAN -->
+    <div id="reportModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="glass-card max-w-2xl w-full rounded-3xl border border-indigo-500/30 relative flex flex-col my-8 shadow-2xl overflow-hidden animate-fade-in">
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-6 border-b border-slate-800 bg-slate-950/90 flex items-center justify-between no-print">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-file-invoice text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Laporan Keuangan Nexora ID</h3>
+                        <p class="text-xs text-indigo-300">Ringkasan Portofolio & Proyeksi Simpanan</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="doPrintBtn" type="button" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center gap-1.5">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Cetak / PDF</span>
+                    </button>
+                    <button id="closeReportModalBtn" type="button" aria-label="Tutup Report Modal" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition-colors">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Printable Document Body -->
+            <div id="printableReport" class="p-6 sm:p-8 space-y-6 bg-slate-950 text-slate-200">
+                <!-- Report Header Badge -->
+                <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white">NEXORA SAVINGS REPORT</h2>
+                        <p class="text-xs text-indigo-400 font-mono mt-1">Nomor Verifikasi ID: NEX-SEC-2026-REG</p>
+                    </div>
+                    <div class="text-right text-xs text-slate-400">
+                        <p>Penerbit Resmi:</p>
+                        <p class="font-bold text-white">Rizky Hari Mukti</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5" id="reportDateText">Diperbarui: -</p>
+                    </div>
+                </div>
+
+                <!-- Printable Summary Metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div class="p-4 bg-slate-900 rounded-2xl border border-slate-800">
+                        <span class="text-[11px] text-slate-400 block font-medium">Total Akumulasi Tabungan</span>
+                        <div class="text-xl font-mono font-extrabold text-white mt-1" id="repTotalSavings">Rp 0</div>
+                    </div>
+                    <div class="p-4 bg-slate-900 rounded-2xl border border-slate-800">
+                        <span class="text-[11px] text-slate-400 block font-medium">Tabungan Fleksibel</span>
+                        <div class="text-xl font-mono font-bold text-cyan-400 mt-1" id="repFlexSavings">Rp 0</div>
+                    </div>
+                    <div class="p-4 bg-slate-900 rounded-2xl border border-slate-800 col-span-2 sm:col-span-1">
+                        <span class="text-[11px] text-slate-400 block font-medium">Total Pos Terdaftar</span>
+                        <div class="text-xl font-mono font-bold text-indigo-400 mt-1" id="repGoalCount">0 Pos</div>
+                    </div>
+                </div>
+
+                <!-- Goals Table -->
+                <div>
+                    <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-400"></i>
+                        <span>Rincian Pos Target Tabungan</span>
+                    </h4>
+                    <div class="overflow-x-auto border border-slate-800 rounded-xl">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-900 text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-800">
+                                <tr>
+                                    <th class="p-3">Nama Pos</th>
+                                    <th class="p-3">Kategori</th>
+                                    <th class="p-3 text-right">Terkumpul</th>
+                                    <th class="p-3 text-right">Target</th>
+                                    <th class="p-3 text-right">Progres</th>
+                                </tr>
+                            </thead>
+                            <tbody id="repGoalsTableBody" class="divide-y divide-slate-800 font-mono">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Printable Projections -->
+                <div class="p-4 bg-slate-900/60 rounded-2xl border border-slate-800 text-xs space-y-2">
+                    <h4 class="font-bold text-white uppercase tracking-wider text-[11px] text-indigo-400">Ringkasan Proyeksi Bunga Majemuk</h4>
+                    <div class="flex justify-between text-slate-300">
+                        <span>Estimasi Total Saldo Proyeksi:</span>
+                        <span class="font-mono font-bold text-white" id="repCalcTotal">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-slate-300">
+                        <span>Modal Disetor:</span>
+                        <span class="font-mono text-slate-400" id="repCalcPrincipal">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-slate-300">
+                        <span>Estimasi Profit / Imbal Hasil:</span>
+                        <span class="font-mono font-bold text-emerald-400" id="repCalcInterest">+Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Footer stamp -->
+                <div class="pt-4 border-t border-slate-800 text-center text-[10px] text-slate-400">
+                    Dokumen ringkasan ini dicetak resmi dari sistem kecerdasan tabungan <strong>Nexora ID</strong>. <br>Dikembangkan & Diterbitkan oleh <strong>Rizky Hari Mukti</strong> (Instagram: @Rskyy031).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-900 pt-16 pb-12 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-900">
+                <!-- Col 1 -->
+                <div class="space-y-4 md:col-span-1">
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                        </div>
+                        <span class="text-lg font-extrabold tracking-tight text-white">NEXORA <span class="text-indigo-500">SAVINGS</span></span>
+                    </a>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Platform kecerdasan tabungan & manajemen kekayaan terenkripsi.
+                    </p>
+                    <div class="text-xs text-slate-400">
+                        Penerbit: <strong class="text-white">Rizky Hari Mukti</strong>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h5 class="text-white font-bold text-xs uppercase tracking-wider mb-4">Navigasi</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#kalkulator" class="hover:text-white transition-colors">Kalkulator Bunga</a></li>
+                        <li><a href="#analytics" class="hover:text-white transition-colors">Grafik Visual</a></li>
+                        <li><a href="#targets" class="hover:text-white transition-colors">Pos Target Tabungan</a></li>
+                        <li><a href="#fitur" class="hover:text-white transition-colors">Keunggulan Fitur</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h5 class="text-white font-bold text-xs uppercase tracking-wider mb-4">Keamanan & Legal</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-white transition-colors">Kebijakan Privasi Data</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Standar Enkripsi AES-256</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a></li>
+                        <li><a href="#penerbit" class="hover:text-white transition-colors">Penerbit Resmi: Rizky Hari Mukti</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h5 class="text-white font-bold text-xs uppercase tracking-wider mb-4">Media Sosial</h5>
+                    <div class="flex items-center space-x-3 mb-3">
+                        <a href="https://instagram.com/Rskyy031" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-pink-400 hover:text-white hover:border-indigo-500 transition-colors" aria-label="Instagram Rskyy031">
+                            <i class="fa-brands fa-instagram text-base"></i>
+                        </a>
+                        <a href="https://instagram.com/Rskyy031" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-slate-300 hover:text-indigo-400 transition-colors">
+                            IG: @Rskyy031
+                        </a>
+                    </div>
+                    <div class="flex space-x-3 mb-4">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-white hover:border-indigo-500 transition-colors" aria-label="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-white hover:border-indigo-500 transition-colors" aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-white hover:border-indigo-500 transition-colors" aria-label="X Twitter">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                    <span class="text-[11px] text-slate-400 block">
+                        Dipublikasikan & Dikembangkan oleh Rizky Hari Mukti © 2026.
+                    </span>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+                <p>&copy; 2026 Nexora ID Savings Tool. Hak Cipta Dilindungi Undang-Undang.</p>
+                <p>Penerbit Resmi: <span class="text-slate-300 font-semibold">Rizky Hari Mukti</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC, CALCULATOR & CHART.JS INTERACTIVITY -->
+    <script>
+        function initNexoraSavingsApp() {
+            const STORAGE_KEY = 'nexora_savings_app_state_v1';
+
+            // Flexible Savings Balance (Regular savings without target)
+            let flexibleSavingsBalance = 0;
+
+            // State for savings goals
+            let goalsState = [
+                { id: 1, name: "Dana Darurat", current: 0, target: 50000000, category: "Prioritas" },
+                { id: 2, name: "DP Rumah Pertama", current: 0, target: 120000000, category: "Properti" },
+                { id: 3, name: "Liburan & Umroh", current: 0, target: 30000000, category: "Lifestyle" }
+            ];
+
+            // AUTO-SAVE / LOAD SYSTEM (LOCAL STORAGE)
+            function loadStateFromStorage() {
+                try {
+                    const saved = localStorage.getItem(STORAGE_KEY);
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        if (typeof parsed.flexibleSavingsBalance === 'number') {
+                            flexibleSavingsBalance = parsed.flexibleSavingsBalance;
+                        }
+                        if (Array.isArray(parsed.goalsState) && parsed.goalsState.length > 0) {
+                            goalsState = parsed.goalsState;
+                        }
+                        if (parsed.calcInputs) {
+                            if (parsed.calcInputs.initialDeposit !== undefined && document.getElementById('initialDeposit')) {
+                                document.getElementById('initialDeposit').value = formatNumberDots(parsed.calcInputs.initialDeposit);
+                            }
+                            if (parsed.calcInputs.monthlyDeposit !== undefined && document.getElementById('monthlyDeposit')) {
+                                document.getElementById('monthlyDeposit').value = formatNumberDots(parsed.calcInputs.monthlyDeposit);
+                            }
+                            if (parsed.calcInputs.interestRate !== undefined && document.getElementById('interestRate')) {
+                                document.getElementById('interestRate').value = parsed.calcInputs.interestRate;
+                                if (document.getElementById('interestRateNum')) {
+                                    document.getElementById('interestRateNum').value = parsed.calcInputs.interestRate;
+                                }
+                            }
+                            if (parsed.calcInputs.investmentYears !== undefined && document.getElementById('investmentYears')) {
+                                document.getElementById('investmentYears').value = parsed.calcInputs.investmentYears;
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error("Gagal memuat data tersimpan:", e);
+                }
+            }
+
+            function saveStateToStorage() {
+                try {
+                    const calcInputs = {
+                        initialDeposit: parseDotsToNumber(document.getElementById('initialDeposit')?.value),
+                        monthlyDeposit: parseDotsToNumber(document.getElementById('monthlyDeposit')?.value),
+                        interestRate: parseFloat(document.getElementById('interestRate')?.value) || 0,
+                        investmentYears: parseInt(document.getElementById('investmentYears')?.value) || 1
+                    };
+                    const payload = {
+                        flexibleSavingsBalance,
+                        goalsState,
+                        calcInputs
+                    };
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+                } catch (e) {
+                    console.error("Gagal menyimpan data:", e);
+                }
+            }
+
+            // Chart Instances
+            let growthChartInstance = null;
+            let ratioChartInstance = null;
+            let allocationChartInstance = null;
+
+            // Thousand Dots Formatter & Parser Helpers
+            function formatNumberDots(value) {
+                if (value === null || value === undefined || value === '') return '';
+                let numStr = value.toString().replace(/[^0-9]/g, '');
+                if (!numStr) return '0';
+                return parseInt(numStr, 10).toLocaleString('id-ID');
+            }
+
+            function parseDotsToNumber(str) {
+                if (typeof str === 'number') return str;
+                if (!str) return 0;
+                const cleanStr = str.toString().replace(/[^0-9]/g, '');
+                return parseInt(cleanStr, 10) || 0;
+            }
+
+            // Currency IDR Display Formatter
+            function formatIDR(amount) {
+                return 'Rp ' + (amount || 0).toLocaleString('id-ID');
+            }
+
+            // Attach auto-formatting listeners to all IDR input fields
+            function bindIdrInputs() {
+                document.querySelectorAll('.idr-input').forEach(input => {
+                    input.addEventListener('input', function(e) {
+                        const rawVal = parseDotsToNumber(e.target.value);
+                        e.target.value = formatNumberDots(rawVal);
+                        saveStateToStorage();
+                    });
+                });
+            }
+            bindIdrInputs();
+
+            // Custom Toast Notification System
+            function showToast(title, message, type = 'info') {
+                const toastContainer = document.getElementById('toastContainer');
+                if (!toastContainer) return;
+
+                const toast = document.createElement('div');
+                toast.className = `pointer-events-auto flex items-start gap-3 p-4 rounded-2xl glass-card border shadow-xl max-w-sm w-full transform transition-all duration-300 translate-y-5 opacity-0 z-50 ${
+                    type === 'success' ? 'border-emerald-500/50 text-emerald-300' :
+                    type === 'error' ? 'border-rose-500/50 text-rose-300' :
+                    'border-indigo-500/50 text-indigo-300'
+                }`;
+
+                const iconClass = type === 'success' ? 'fa-circle-check text-emerald-400' :
+                                  type === 'error' ? 'fa-circle-exclamation text-rose-400' :
+                                  'fa-circle-info text-indigo-400';
+
+                toast.innerHTML = `
+                    <i class="fa-solid ${iconClass} text-xl mt-0.5"></i>
+                    <div class="flex-1">
+                        <h5 class="text-sm font-bold text-white">${title}</h5>
+                        <p class="text-xs text-slate-300 mt-0.5 leading-relaxed">${message}</p>
+                    </div>
+                    <button type="button" aria-label="Tutup Toast" class="text-slate-400 hover:text-white text-xs p-1 focus:outline-none">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+
+                const closeBtn = toast.querySelector('button');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        toast.classList.add('opacity-0', 'translate-y-2');
+                        setTimeout(() => toast.remove(), 200);
+                    });
+                }
+
+                toastContainer.appendChild(toast);
+
+                requestAnimationFrame(() => {
+                    toast.classList.remove('translate-y-5', 'opacity-0');
+                });
+
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.classList.add('opacity-0', 'translate-y-2');
+                        setTimeout(() => toast.remove(), 300);
+                    }
+                }, 4500);
+            }
+
+            // MATCH INVESTMENT INSTRUMENT ACCORDING TO RETURN RATE (%)
+            function updateInvestmentInstrumentMapping(rate) {
+                const nameElem = document.getElementById('matchedInstrumentName');
+                const descElem = document.getElementById('matchedInstrumentDesc');
+                if (!nameElem || !descElem) return;
+
+                if (rate === 0) {
+                    nameElem.textContent = "Tabungan Bank Konvensional / Cash";
+                    descElem.textContent = "Tingkat bunga dasar 0% per tahun. Cocok untuk kebutuhan dana harian & likuiditas instan.";
+                } else if (rate > 0 && rate <= 4) {
+                    nameElem.textContent = "Deposito Bank / Tabungan Berjangka";
+                    descElem.textContent = "Estimasi return ~2.5% - 4.0% p.a. Sangat rendah risiko (LPS guaranteed), imbal hasil stabil.";
+                } else if (rate > 4 && rate <= 6) {
+                    nameElem.textContent = "Reksadana Pasar Uang (RPU)";
+                    descElem.textContent = "Estimasi return ~4.5% - 6.0% p.a. Bebas pajak, sangat likuid, risiko relatif rendah.";
+                } else if (rate > 6 && rate <= 8.5) {
+                    nameElem.textContent = "Obligasi Negara / SBR / Reksadana Pendapatan Tetap";
+                    descElem.textContent = "Estimasi return ~6.2% - 8.5% p.a. Dijamin undang-undang negara, kupon bulanan teratur.";
+                } else if (rate > 8.5 && rate <= 12) {
+                    nameElem.textContent = "Reksadana Campuran / Saham Bluechip / ETF";
+                    descElem.textContent = "Estimasi return ~9.0% - 12.0% p.a. Potensi pertumbuhan jangka sedang-panjang dengan fluktuasi moderat.";
+                } else {
+                    nameElem.textContent = "Portofolio Saham Agresif / Kripto (High Risk)";
+                    descElem.textContent = "Estimasi return > 12.0% p.a. Potensi hasil tinggi dibarengi tingkat risiko dan volatilitas tinggi.";
+                }
+            }
+
+            function calculateCompoundInterest() {
+                const initial = parseDotsToNumber(document.getElementById('initialDeposit')?.value);
+                const monthly = parseDotsToNumber(document.getElementById('monthlyDeposit')?.value);
+                const ratePerYear = parseFloat(document.getElementById('interestRate')?.value) || 0;
+                const years = parseInt(document.getElementById('investmentYears')?.value) || 1;
+
+                updateInvestmentInstrumentMapping(ratePerYear);
+
+                const months = years * 12;
+                const monthlyRate = (ratePerYear / 100) / 12;
+
+                let labels = [];
+                let balanceData = [];
+                let principalData = [];
+
+                let currentBalance = initial;
+                let currentPrincipal = initial;
+
+                for (let m = 0; m <= months; m++) {
+                    if (m > 0) {
+                        currentPrincipal += monthly;
+                        currentBalance = (currentBalance + monthly) * (1 + monthlyRate);
+                    }
+                    
+                    if (months <= 36 || m % 3 === 0 || m === months) {
+                        labels.push(m === 0 ? 'Mulai' : `Bln ${m}`);
+                        balanceData.push(Math.round(currentBalance));
+                        principalData.push(Math.round(currentPrincipal));
+                    }
+                }
+
+                const totalBalance = Math.round(currentBalance);
+                const totalPrincipal = Math.round(currentPrincipal);
+                const totalInterest = Math.max(0, totalBalance - totalPrincipal);
+                const interestRatioPercent = totalPrincipal > 0 ? ((totalInterest / totalPrincipal) * 100).toFixed(1) : 0;
+
+                // Update KPI Cards
+                if (document.getElementById('resTotalBalance')) document.getElementById('resTotalBalance').textContent = formatIDR(totalBalance);
+                if (document.getElementById('resTotalPrincipal')) document.getElementById('resTotalPrincipal').textContent = formatIDR(totalPrincipal);
+                if (document.getElementById('resTotalInterest')) document.getElementById('resTotalInterest').textContent = '+' + formatIDR(totalInterest);
+                if (document.getElementById('resInterestPercent')) document.getElementById('resInterestPercent').textContent = `+${interestRatioPercent}% dari Modal`;
+
+                // Update Input Displays
+                if (document.getElementById('valInitialDepositDisplay')) document.getElementById('valInitialDepositDisplay').textContent = formatIDR(initial);
+                if (document.getElementById('valMonthlyDepositDisplay')) document.getElementById('valMonthlyDepositDisplay').textContent = formatIDR(monthly);
+                if (document.getElementById('valInterestRateDisplay')) document.getElementById('valInterestRateDisplay').textContent = `${ratePerYear.toFixed(1)} %`;
+                if (document.getElementById('valYearsDisplay')) document.getElementById('valYearsDisplay').textContent = `${years} Tahun (${months} Bulan)`;
+
+                if (document.getElementById('heroAvgReturn')) document.getElementById('heroAvgReturn').textContent = `${ratePerYear.toFixed(1)}% p.a`;
+
+                saveStateToStorage();
+
+                renderGrowthChart(labels, balanceData, principalData);
+                renderRatioChart(totalPrincipal, totalInterest);
+            }
+
+            function renderGrowthChart(labels, balanceData, principalData) {
+                const ctx = document.getElementById('growthChart')?.getContext('2d');
+                if (!ctx) return;
+
+                if (growthChartInstance) {
+                    growthChartInstance.destroy();
+                }
+
+                growthChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Estimasi Total Saldo (Inc. Bunga)',
+                                data: balanceData,
+                                borderColor: '#6366f1',
+                                backgroundColor: 'rgba(99, 102, 241, 0.15)',
+                                fill: true,
+                                tension: 0.3,
+                                borderWidth: 3,
+                                pointRadius: 2,
+                                pointHoverRadius: 6
+                            },
+                            {
+                                label: 'Total Uang Modal Disetor',
+                                data: principalData,
+                                borderColor: '#06b6d4',
+                                backgroundColor: 'transparent',
+                                borderDash: [5, 5],
+                                borderWidth: 2,
+                                pointRadius: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11 } }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + formatIDR(context.parsed.y);
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                ticks: { color: '#64748b', font: { size: 10 } }
+                            },
+                            y: {
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                ticks: {
+                                    color: '#64748b',
+                                    font: { size: 10 },
+                                    callback: function(value) {
+                                        return 'Rp ' + (value / 1000000).toFixed(0) + ' Jt';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderRatioChart(principal, interest) {
+                const ctx = document.getElementById('ratioChart')?.getContext('2d');
+                if (!ctx) return;
+
+                if (ratioChartInstance) {
+                    ratioChartInstance.destroy();
+                }
+
+                ratioChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Uang Modal Disetor', 'Keuntungan Bunga Majemuk'],
+                        datasets: [{
+                            data: [principal || 1, interest],
+                            backgroundColor: ['#4f46e5', '#10b981'],
+                            borderColor: '#0b0f19',
+                            borderWidth: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11 } }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + formatIDR(context.parsed);
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '70%'
+                    }
+                });
+            }
+
+            function renderAllocationChart() {
+                const ctx = document.getElementById('allocationChart')?.getContext('2d');
+                if (!ctx) return;
+
+                const labels = ['Tabungan Fleksibel', ...goalsState.map(g => g.name)];
+                const currentData = [flexibleSavingsBalance, ...goalsState.map(g => g.current)];
+                const targetData = [flexibleSavingsBalance, ...goalsState.map(g => g.target)];
+
+                if (allocationChartInstance) {
+                    allocationChartInstance.destroy();
+                }
+
+                allocationChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Terkumpul Saat Ini',
+                                data: currentData,
+                                backgroundColor: '#06b6d4',
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Target / Bebas',
+                                data: targetData.map((t, idx) => Math.max(0, t - currentData[idx])),
+                                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                                borderRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11 } }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + formatIDR(context.parsed.y);
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                                grid: { display: false },
+                                ticks: { color: '#64748b', font: { size: 10 } }
+                            },
+                            y: {
+                                stacked: true,
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                ticks: {
+                                    color: '#64748b',
+                                    font: { size: 10 },
+                                    callback: function(val) { return 'Rp ' + (val/1000000) + 'M'; }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // INPUT SYNC & CALCULATOR EVENTS
+            const interestRange = document.getElementById('interestRate');
+            const interestNum = document.getElementById('interestRateNum');
+
+            if (interestRange && interestNum) {
+                interestRange.addEventListener('input', (e) => {
+                    interestNum.value = e.target.value;
+                    calculateCompoundInterest();
+                });
+                interestNum.addEventListener('input', (e) => {
+                    interestRange.value = e.target.value;
+                    calculateCompoundInterest();
+                });
+            }
+
+            ['initialDeposit', 'monthlyDeposit', 'investmentYears'].forEach(id => {
+                const elem = document.getElementById(id);
+                if (elem) {
+                    elem.addEventListener('input', calculateCompoundInterest);
+                    elem.addEventListener('change', calculateCompoundInterest);
+                }
+            });
+
+            const recalculateBtn = document.getElementById('recalculateBtn');
+            if (recalculateBtn) {
+                recalculateBtn.addEventListener('click', () => {
+                    calculateCompoundInterest();
+                    showToast('Kalkulasi Diperbarui', 'Simulasi pertumbuhan tabungan berhasil dihitung ulang!', 'success');
+                });
+            }
+
+            const resetCalcBtn = document.getElementById('resetCalcBtn');
+            if (resetCalcBtn) {
+                resetCalcBtn.addEventListener('click', () => {
+                    if (document.getElementById('initialDeposit')) document.getElementById('initialDeposit').value = '0';
+                    if (document.getElementById('monthlyDeposit')) document.getElementById('monthlyDeposit').value = '0';
+                    if (document.getElementById('interestRate')) document.getElementById('interestRate').value = 0;
+                    if (document.getElementById('interestRateNum')) document.getElementById('interestRateNum').value = 0;
+                    if (document.getElementById('investmentYears')) document.getElementById('investmentYears').value = 1;
+                    calculateCompoundInterest();
+                    showToast('Reset Parameter', 'Nilai kalkulator dikembalikan ke angka nol (0).', 'info');
+                });
+            }
+
+            // REGULAR FLEXIBLE SAVINGS DEPOSIT & WITHDRAW HANDLERS
+            const flexBalanceDisplay = document.getElementById('flexBalanceDisplay');
+            const flexDepositBtn = document.getElementById('flexDepositBtn');
+            const flexWithdrawBtn = document.getElementById('flexWithdrawBtn');
+            const withdrawModal = document.getElementById('withdrawModal');
+            const closeWithdrawModalBtn = document.getElementById('closeWithdrawModalBtn');
+            const withdrawForm = document.getElementById('withdrawForm');
+
+            function updateFlexibleDisplay() {
+                if (flexBalanceDisplay) {
+                    flexBalanceDisplay.textContent = formatIDR(flexibleSavingsBalance);
+                }
+                const withdrawMaxText = document.getElementById('withdrawMaxBalanceText');
+                if (withdrawMaxText) {
+                    withdrawMaxText.textContent = formatIDR(flexibleSavingsBalance);
+                }
+
+                // Update Hero Total
+                const totalAllGoals = goalsState.reduce((acc, curr) => acc + curr.current, 0);
+                const grandTotal = totalAllGoals + flexibleSavingsBalance;
+                if (document.getElementById('heroTotalSavings')) {
+                    document.getElementById('heroTotalSavings').textContent = formatIDR(grandTotal);
+                }
+                if (document.getElementById('heroGoalCount')) {
+                    document.getElementById('heroGoalCount').textContent = `${goalsState.length + 1} Pos`;
+                }
+
+                saveStateToStorage();
+                renderAllocationChart();
+            }
+
+            if (flexDepositBtn) {
+                flexDepositBtn.addEventListener('click', () => {
+                    openDepositModal(-1, "Dompet Simpanan Fleksibel");
+                });
+            }
+
+            if (flexWithdrawBtn) {
+                flexWithdrawBtn.addEventListener('click', () => {
+                    if (withdrawModal) withdrawModal.classList.remove('hidden');
+                });
+            }
+
+            if (closeWithdrawModalBtn && withdrawModal) {
+                closeWithdrawModalBtn.addEventListener('click', () => withdrawModal.classList.add('hidden'));
+            }
+
+            document.querySelectorAll('.quick-with-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const amt = btn.getAttribute('data-amount');
+                    const withdrawInput = document.getElementById('withdrawAmountInput');
+                    if (withdrawInput) {
+                        withdrawInput.value = formatNumberDots(amt);
+                    }
+                });
+            });
+
+            if (withdrawForm) {
+                withdrawForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const amount = parseDotsToNumber(document.getElementById('withdrawAmountInput').value);
+                    if (amount <= 0) {
+                        showToast('Nominal Salah', 'Masukkan nominal penarikan lebih dari 0.', 'error');
+                        return;
+                    }
+                    if (amount > flexibleSavingsBalance) {
+                        showToast('Saldo Tidak Cukup', 'Nominal penarikan melebihi saldo tabungan fleksibel Anda.', 'error');
+                        return;
+                    }
+
+                    flexibleSavingsBalance -= amount;
+                    updateFlexibleDisplay();
+                    if (withdrawModal) withdrawModal.classList.add('hidden');
+                    document.getElementById('withdrawAmountInput').value = '0';
+                    showToast('Penarikan Berhasil', `Berhasil menarik ${formatIDR(amount)} dari dompet fleksibel.`, 'success');
+                });
+            }
+
+            // GOAL TARGET CARDS RENDERER
+            function renderGoalCards() {
+                const container = document.getElementById('goalsContainer');
+                if (!container) return;
+
+                container.innerHTML = '';
+                goalsState.forEach((goal, index) => {
+                    const percent = goal.target > 0 ? Math.min(100, Math.round((goal.current / goal.target) * 1000) / 10) : 0;
+                    const card = document.createElement('div');
+                    card.className = "glass-card p-6 rounded-2xl border border-slate-800 glass-card-hover transition-all flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl">
+                                    <i class="fa-solid fa-bullseye"></i>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 text-[10px] font-bold uppercase tracking-wider">${goal.category || 'Tabungan'}</span>
+                            </div>
+
+                            <h4 class="text-lg font-bold text-white mb-1">${goal.name}</h4>
+                            <p class="text-xs text-slate-400 mb-4">Pos Alokasi Tabungan Digital</p>
+
+                            <div class="space-y-2 mb-4">
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-slate-400">Terkumpul:</span>
+                                    <span class="font-mono font-bold text-white">${formatIDR(goal.current)}</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-slate-400">Target Akhir:</span>
+                                    <span class="font-mono text-indigo-300 font-semibold">${formatIDR(goal.target)}</span>
+                                </div>
+
+                                <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden border border-slate-800">
+                                    <div class="bg-gradient-to-r from-indigo-500 to-cyan-400 h-2.5 rounded-full" style="width: ${percent}%;"></div>
+                                </div>
+                                <div class="text-right text-[10px] font-mono text-cyan-400 font-bold">${percent}% Terpenuhi</div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="deposit-btn w-full py-2.5 bg-slate-900 hover:bg-indigo-600/30 text-indigo-300 hover:text-white border border-indigo-500/30 font-semibold text-xs rounded-xl transition-all flex items-center justify-center gap-2" data-goal-index="${index}" data-goal-name="${goal.name}">
+                            <i class="fa-solid fa-money-bill-transfer"></i>
+                            <span>+ Setor Tabungan</span>
+                        </button>
+                    `;
+                    container.appendChild(card);
+                });
+
+                container.querySelectorAll('.deposit-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = parseInt(btn.getAttribute('data-goal-index'), 10);
+                        const gName = btn.getAttribute('data-goal-name');
+                        openDepositModal(idx, gName);
+                    });
+                });
+
+                updateFlexibleDisplay();
+            }
+
+            // MODAL HANDLERS
+            const depositModal = document.getElementById('depositModal');
+            const closeDepositModalBtn = document.getElementById('closeDepositModalBtn');
+            const depositForm = document.getElementById('depositForm');
+
+            function openDepositModal(index, name) {
+                if (document.getElementById('depositGoalIndex')) document.getElementById('depositGoalIndex').value = index;
+                if (document.getElementById('depositGoalTargetName')) document.getElementById('depositGoalTargetName').textContent = name;
+                if (depositModal) depositModal.classList.remove('hidden');
+            }
+
+            if (closeDepositModalBtn && depositModal) {
+                closeDepositModalBtn.addEventListener('click', () => depositModal.classList.add('hidden'));
+            }
+
+            document.querySelectorAll('.quick-dep-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const amt = btn.getAttribute('data-amount');
+                    const depInput = document.getElementById('depositAmountInput');
+                    if (depInput) {
+                        depInput.value = formatNumberDots(amt);
+                    }
+                });
+            });
+
+            if (depositForm) {
+                depositForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const idx = parseInt(document.getElementById('depositGoalIndex').value, 10);
+                    const amount = parseDotsToNumber(document.getElementById('depositAmountInput').value);
+
+                    if (amount <= 0) {
+                        showToast('Nominal Salah', 'Masukkan nominal setoran lebih dari 0.', 'error');
+                        return;
+                    }
+
+                    if (idx === -1) {
+                        flexibleSavingsBalance += amount;
+                        updateFlexibleDisplay();
+                        if (depositModal) depositModal.classList.add('hidden');
+                        showToast('Setoran Berhasil!', `Berhasil menambahkan ${formatIDR(amount)} ke Dompet Fleksibel.`, 'success');
+                    } else if (goalsState[idx]) {
+                        goalsState[idx].current += amount;
+                        renderGoalCards();
+                        if (depositModal) depositModal.classList.add('hidden');
+                        showToast('Setoran Berhasil!', `Berhasil menambahkan ${formatIDR(amount)} ke pos target ${goalsState[idx].name}.`, 'success');
+                    }
+                });
+            }
+
+            // ADD NEW GOAL MODAL
+            const addGoalBtn = document.getElementById('addGoalBtn');
+            const addGoalModal = document.getElementById('addGoalModal');
+            const closeAddGoalModalBtn = document.getElementById('closeAddGoalModalBtn');
+            const addGoalForm = document.getElementById('addGoalForm');
+
+            if (addGoalBtn && addGoalModal) {
+                addGoalBtn.addEventListener('click', () => addGoalModal.classList.remove('hidden'));
+            }
+
+            if (closeAddGoalModalBtn && addGoalModal) {
+                closeAddGoalModalBtn.addEventListener('click', () => addGoalModal.classList.add('hidden'));
+            }
+
+            if (addGoalForm) {
+                addGoalForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const gName = document.getElementById('newGoalName').value;
+                    const gCat = document.getElementById('newGoalCategory').value;
+                    const gCurrent = parseDotsToNumber(document.getElementById('newGoalCurrent').value);
+                    const gTarget = parseDotsToNumber(document.getElementById('newGoalTarget').value);
+
+                    goalsState.push({
+                        id: Date.now(),
+                        name: gName,
+                        current: gCurrent,
+                        target: gTarget,
+                        category: gCat
+                    });
+
+                    renderGoalCards();
+                    if (addGoalModal) addGoalModal.classList.add('hidden');
+                    addGoalForm.reset();
+                    showToast('Pos Dibuat!', `Pos target baru "${gName}" telah ditambahkan.`, 'success');
+                });
+            }
+
+            /* CETAK / EXPORT LAPORAN MODAL LOGIC */
+            const exportReportBtn = document.getElementById('exportReportBtn');
+            const reportModal = document.getElementById('reportModal');
+            const closeReportModalBtn = document.getElementById('closeReportModalBtn');
+            const doPrintBtn = document.getElementById('doPrintBtn');
+
+            function populateReportModal() {
+                const now = new Date();
+                const formattedDate = now.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                if (document.getElementById('reportDateText')) document.getElementById('reportDateText').textContent = 'Diperbarui: ' + formattedDate;
+
+                const totalAllGoals = goalsState.reduce((acc, curr) => acc + curr.current, 0);
+                const grandTotal = totalAllGoals + flexibleSavingsBalance;
+
+                if (document.getElementById('repTotalSavings')) document.getElementById('repTotalSavings').textContent = formatIDR(grandTotal);
+                if (document.getElementById('repFlexSavings')) document.getElementById('repFlexSavings').textContent = formatIDR(flexibleSavingsBalance);
+                if (document.getElementById('repGoalCount')) document.getElementById('repGoalCount').textContent = `${goalsState.length} Pos Target`;
+
+                // Populate Table
+                const tbody = document.getElementById('repGoalsTableBody');
+                if (tbody) {
+                    tbody.innerHTML = '';
+                    goalsState.forEach(g => {
+                        const percent = g.target > 0 ? Math.min(100, Math.round((g.current / g.target) * 100)) : 0;
+                        const tr = document.createElement('tr');
+                        tr.className = "hover:bg-slate-900/50 transition-colors";
+                        tr.innerHTML = `
+                            <td class="p-3 font-semibold text-white">${g.name}</td>
+                            <td class="p-3 text-slate-400">${g.category || 'Umum'}</td>
+                            <td class="p-3 text-right font-bold text-white">${formatIDR(g.current)}</td>
+                            <td class="p-3 text-right text-indigo-300">${formatIDR(g.target)}</td>
+                            <td class="p-3 text-right font-bold text-cyan-400">${percent}%</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+
+                // Calculator Projections
+                const calcTotal = document.getElementById('resTotalBalance')?.textContent || 'Rp 0';
+                const calcPrincipal = document.getElementById('resTotalPrincipal')?.textContent || 'Rp 0';
+                const calcInterest = document.getElementById('resTotalInterest')?.textContent || '+Rp 0';
+
+                if (document.getElementById('repCalcTotal')) document.getElementById('repCalcTotal').textContent = calcTotal;
+                if (document.getElementById('repCalcPrincipal')) document.getElementById('repCalcPrincipal').textContent = calcPrincipal;
+                if (document.getElementById('repCalcInterest')) document.getElementById('repCalcInterest').textContent = calcInterest;
+            }
+
+            if (exportReportBtn && reportModal) {
+                exportReportBtn.addEventListener('click', () => {
+                    populateReportModal();
+                    reportModal.classList.remove('hidden');
+                });
+            }
+
+            if (closeReportModalBtn && reportModal) {
+                closeReportModalBtn.addEventListener('click', () => reportModal.classList.add('hidden'));
+            }
+
+            if (doPrintBtn) {
+                doPrintBtn.addEventListener('click', () => {
+                    window.print();
+                });
+            }
+
+            window.addEventListener('click', (e) => {
+                if (e.target === withdrawModal && withdrawModal) withdrawModal.classList.add('hidden');
+                if (e.target === depositModal && depositModal) depositModal.classList.add('hidden');
+                if (e.target === addGoalModal && addGoalModal) addGoalModal.classList.add('hidden');
+                if (e.target === reportModal && reportModal) reportModal.classList.add('hidden');
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (withdrawModal) withdrawModal.classList.add('hidden');
+                    if (depositModal) depositModal.classList.add('hidden');
+                    if (addGoalModal) addGoalModal.classList.add('hidden');
+                    if (reportModal) reportModal.classList.add('hidden');
+                }
+            });
+
+            // HAMBURGER MENU TOGGLE FUNCTIONALITY
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileMenu.classList.toggle('hidden');
+                    if (menuIcon) {
+                        if (mobileMenu.classList.contains('hidden')) {
+                            menuIcon.className = 'fa-solid fa-bars text-xl';
+                        } else {
+                            menuIcon.className = 'fa-solid fa-xmark text-xl';
+                        }
+                    }
+                });
+            }
+
+            // SMOOTH NAVIGATION FOR ALL ANCHOR LINKS AND MOBILE DRAWER
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        const targetElem = document.querySelector(targetId);
+                        if (targetElem) {
+                            e.preventDefault();
+                            if (mobileMenu) mobileMenu.classList.add('hidden');
+                            if (menuIcon) menuIcon.className = 'fa-solid fa-bars text-xl';
+                            targetElem.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // AUTHENTICATION MODAL TRIGGERS
+            const authModal = document.getElementById('authModal');
+            const closeAuthModalBtn = document.getElementById('closeAuthModalBtn');
+            const authForm = document.getElementById('authForm');
+
+            function openAuthModal() {
+                if (!authModal) return;
+                authModal.classList.remove('hidden');
+            }
+
+            ['registerBtnNav', 'mobileRegisterBtn'].forEach(id => {
+                document.getElementById(id)?.addEventListener('click', openAuthModal);
+            });
+
+            if (closeAuthModalBtn && authModal) {
+                closeAuthModalBtn.addEventListener('click', () => authModal.classList.add('hidden'));
+            }
+
+            if (authForm) {
+                authForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (authModal) authModal.classList.add('hidden');
+                    showToast('Brankas ID Dibuat', 'Selamat datang di Platform Tabungan Nexora ID!', 'success');
+                });
+            }
+
+            if (authModal) {
+                window.addEventListener('click', (e) => {
+                    if (e.target === authModal) authModal.classList.add('hidden');
+                });
+            }
+
+            /* CUSTOMER SERVICE NEXORA ID LOGIC */
+            const csModal = document.getElementById('csModal');
+            const mobileCsBtn = document.getElementById('mobileCsBtn');
+            const closeCsModalBtn = document.getElementById('closeCsModalBtn');
+            const csForm = document.getElementById('csForm');
+            const csInput = document.getElementById('csInput');
+            const csChatHistory = document.getElementById('csChatHistory');
+
+            function openCsModal() {
+                if (csModal) csModal.classList.remove('hidden');
+                if (mobileMenu) mobileMenu.classList.add('hidden');
+                if (menuIcon) menuIcon.className = 'fa-solid fa-bars text-xl';
+            }
+
+            if (mobileCsBtn) {
+                mobileCsBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openCsModal();
+                });
+            }
+
+            if (closeCsModalBtn && csModal) {
+                closeCsModalBtn.addEventListener('click', () => csModal.classList.add('hidden'));
+            }
+
+            if (csModal) {
+                window.addEventListener('click', (e) => {
+                    if (e.target === csModal) csModal.classList.add('hidden');
+                });
+            }
+
+            function appendCsMessage(sender, text) {
+                if (!csChatHistory) return;
+                const messageDiv = document.createElement('div');
+                
+                if (sender === 'user') {
+                    messageDiv.className = 'flex items-start justify-end gap-2.5';
+                    messageDiv.innerHTML = `
+                        <div class="bg-indigo-600 text-white rounded-2xl rounded-tr-none p-3.5 max-w-[85%] leading-relaxed font-medium">
+                            ${text}
+                        </div>
+                        <div class="w-7 h-7 rounded-lg bg-slate-800 flex-shrink-0 flex items-center justify-center text-slate-300 text-xs">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.className = 'flex items-start gap-2.5';
+                    messageDiv.innerHTML = `
+                        <div class="w-7 h-7 rounded-lg bg-indigo-600 flex-shrink-0 flex items-center justify-center text-white text-xs shadow-md">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 text-slate-200 max-w-[85%] leading-relaxed">
+                            ${text}
+                        </div>
+                    `;
+                }
+
+                csChatHistory.appendChild(messageDiv);
+                csChatHistory.scrollTop = csChatHistory.scrollHeight;
+            }
+
+            // Customer Service Knowledge Base Engine
+            function getCsAnswer(query) {
+                const q = query.toLowerCase().trim();
+
+                // 1. Publisher & License queries
+                if (/\b(penerbit|rizky|mukti|pembuat|pemilik|developer|creator|lisensi|rskyy031|instagram)\b/i.test(q) || (q.includes('siapa') && (q.includes('nexora') || q.includes('buat') || q.includes('penerbit') || q.includes('rizky')))) {
+                    return `Platform <strong>Nexora ID Savings</strong> diterbitkan & dikembangkan secara resmi oleh <strong>Rizky Hari Mukti</strong> (Instagram: <a href="https://instagram.com/Rskyy031" target="_blank" rel="noopener noreferrer" class="text-indigo-400 underline font-semibold">@Rskyy031</a>).<br><br>Rizky Hari Mukti berkomitmen menghadirkan solusi kalkulator dan manajemen tabungan digital yang transparan, terenkripsi AES-256, serta mudah digunakan oleh siapa saja.`;
+                }
+
+                // 2. Recommendations / "Work" places to save
+                if (/\b(work|rekomendasi|tempat|dimana|investasi|bagus|instrumen|cocok|saham|deposito|reksadana|obligasi|sbr)\b/i.test(q)) {
+                    return `Berikut rekomendasi tempat menabung yang **paling efektif (work)** berdasarkan target jangka waktu kamu:
+                    <br><br>
+                    1. 🏦 <strong>Jangka Pendek / Dana Darurat (0-1 Tahun):</strong>
+                    <br>• <strong>Reksadana Pasar Uang (RPU)</strong>: Return ~4.5% - 6.0% p.a, cair cepat (T+1), bebas pajak.
+                    <br>• <strong>Deposito Bank Digital</strong>: Return ~3.5% - 5.0% p.a, dijamin LPS (Lembaga Penjamin Simpanan).
+                    <br><br>
+                    2. 📈 <strong>Jangka Menengah (1-3 Tahun):</strong>
+                    <br>• <strong>Obligasi Negara / SBR / ORI</strong>: Return ~6.2% - 8.5% p.a, dijamin undang-undang negara.
+                    <br><br>
+                    3. 🚀 <strong>Jangka Panjang (>3 Tahun):</strong>
+                    <br>• <strong>Reksadana Indeks / Saham Bluechip</strong>: Return ~9.0% - 12.0% p.a.
+                    <br><br>💡 Kamu bisa langsung mensimulasikan nilai persentase di <strong>Kalkulator Bunga</strong> di atas!`;
+                }
+
+                // 3. Calculator / Compound interest query
+                if (/\b(kalkulator|hitung|bunga|simulasi|compound|return|persen|tenor|proyeksi)\b/i.test(q)) {
+                    return `Fitur <strong>Kalkulator Bunga Majemuk Nexora</strong> berfungsi mensimulasikan hasil tabungan kamu. Kamu cukup memasukkan Setoran Awal, Setoran Rutin Bulanan, Estimasi Return (% p.a), dan Tenor.
+                    <br><br>Sistem akan otomatis menghitung estimasi saldo akhir & menampilkan instrumen investasi yang paling cocok secara *real-time*!`;
+                }
+
+                // 4. Flexible vs Target goals query
+                if (/\b(fleksibel|target|beda|pos|dompet|setor|tarik|bebas)\b/i.test(q)) {
+                    return `Perbedaan pos tabungan di Nexora ID:
+                    <br><br>
+                    • 💰 <strong>Tabungan Fleksibel:</strong> Dompet simpanan bebas tanpa target khusus. Kamu bisa bebas menekan tombol **+ Setor Uang** atau **- Tarik Uang** kapan saja.
+                    <br>• 🎯 <strong>Pos Target Tabungan:</strong> Alokasi terencana dengan target nominal (seperti DP Rumah, Dana Darurat) dengan indikator % progres ketercapaian.`;
+                }
+
+                // 5. Security & Legal query
+                if (/\b(keamanan|aman|legal|privasi|privacy|enkripsi|aes|aes-256|data|terkunci|server|ojk|bank)\b/i.test(q)) {
+                    return `🔒 <strong>Keamanan Data di Nexora ID:</strong><br><br>• Seluruh data bersifat **lokal dan terenkripsi AES-256** di browser kamu.<br>• Tidak ada saldo uang asli yang terpotong, platform ini murni alat bantu pencatatan & simulasi finansial pintar.<br>• Data kamu privat dan tidak dikirimkan ke server pihak ketiga mana pun.`;
+                }
+
+                // 6. Greetings
+                if (/^(halo|hai|hi|hey|helo|p|ping|selamat\s*(pagi|siang|sore|malam)|assalamu\s*alaikum)\b/i.test(q)) {
+                    return `Halo! 👋 Selamat datang di <strong>Customer Service Nexora ID</strong>.<br><br>Ada yang bisa saya bantu mengenai simulasi tabungan, rekomendasi tempat menabung yang menguntungkan, atau penggunaan fitur di platform ini? 😊`;
+                }
+
+                // 7. Thank you & Gratitude
+                if (/\b(makasih|terima\s*kasih|thanks|thx|suwun|makasi|thank\s*you|mksh|trims)\b/i.test(q)) {
+                    return `Sama-sama! 😊 Senang bisa membantu kamu.<br><br>Semoga perencanaan keuangan dan target tabungan kamu berjalan lancar bersama <strong>Nexora ID</strong>! Jangan ragu untuk bertanya lagi jika ada yang membingungkan. 🚀`;
+                }
+
+                // 8. Acknowledgments / Confirmations
+                if (/^(ok|okay|siap|baik|sip|paham|mengerti|mantap|keren|oke)[\!\.]?$/i.test(q)) {
+                    return `Siap! Ada yang bisa saya bantu lagi terkait tabungan atau fitur di Nexora ID? 👍`;
+                }
+
+                // 9. Fallback
+                return `Maaf ya sepertinya pertanyaan kamu diluar konteks yang aku pahami jadi aku belum ngerti. 😅<br><br>Aku adalah <strong>Customer Service Nexora ID</strong> yang siap menjawab seputar:<br>• 👤 <strong>Penerbit & Lisensi</strong> (Rizky Hari Mukti)<br>• 💡 <strong>Rekomendasi Tempat Nabung</strong> (yang work & aman)<br>• 📊 <strong>Cara Kerja Kalkulator Bunga Majemuk</strong><br>• 🎯 <strong>Perbedaan Tabungan Fleksibel vs Pos Target</strong><br>• 🔒 <strong>Keamanan Data & Enkripsi AES-256</strong><br><br>Coba tanyakan salah satu topik di atas ya!`;
+            }
+
+            if (csForm) {
+                csForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const userQuery = csInput.value.trim();
+                    if (!userQuery) return;
+
+                    appendCsMessage('user', userQuery);
+                    csInput.value = '';
+
+                    setTimeout(() => {
+                        const answer = getCsAnswer(userQuery);
+                        appendCsMessage('bot', answer);
+                    }, 300);
+                });
+            }
+
+            document.querySelectorAll('.cs-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    const txt = chip.textContent;
+                    appendCsMessage('user', txt);
+                    setTimeout(() => {
+                        const answer = getCsAnswer(txt);
+                        appendCsMessage('bot', answer);
+                    }, 300);
+                });
+            });
+
+            // INITIALIZE DATA & CHARTS
+            loadStateFromStorage();
+            calculateCompoundInterest();
+            renderGoalCards();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initNexoraSavingsApp);
+        } else {
+            initNexoraSavingsApp();
+        }
+    </script>
+</body>
+</html>
